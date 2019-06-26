@@ -1,0 +1,45 @@
+.App {
+    text-align: center;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.App .RenderApp {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.App .RenderApp section {
+    width: 100%;
+    height: 100%;
+    
+    flex: 1;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.App .RenderApp h1 {
+    margin: 15px 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 34px;
+    font-weight: 300;
+}
+
+.App .RenderApp h2 {
+    margin: 10px 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: darkslategray;
+}
+
+.App .RenderApp h3 {
+    margin: 8px 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
