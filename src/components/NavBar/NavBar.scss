@@ -2,6 +2,15 @@
 
 .NavBar {
     width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar { 
+        display: none;
+    }
 }
 
 .NavBar ul {
@@ -11,12 +20,7 @@
 
     font-size: 24px;
     width: 100%;
-    margin-right: 15px;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    -webkit-overflow-scrolling: touch;
+    padding: 0 10px;
 
     @include mobile {
         font-size: 20px;
@@ -24,12 +28,9 @@
 }
 
 .NavBar ul li {
-    margin: 10px 15px;
+    margin: 0 15px;
 
     flex-shrink: 0;
-
-    transform: scale(1);
-    // transition: transform .2s linear;
 }
 
 .NavBar ul li h1 {
@@ -37,5 +38,8 @@
 }
 
 .NavBar ul li.selected {
-    transform: scale(1.12);
+    
+    h1 {
+        font-weight: 500;
+    }
 }

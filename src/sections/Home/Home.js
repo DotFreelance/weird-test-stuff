@@ -16,27 +16,19 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.pixi = null;
+        this.primaryContainer = new PIXI.Container();
         this.circle = new PIXI.Point();
     }
 
     componentDidMount() {
-        this.pixi = new PIXI.Application({ 
-            width: this.$canvas.clientWidth,
-            height: this.$canvas.clientHeight,
-            resolution: 2,
-            autoDensity: true,
-            antialias: true,
-            view: this.$canvas,
-            transparent: true
-        });
         
         const graphics = new PIXI.Graphics();
+        const { pixi } = this.props;
 
-        this.pixi.stage.interactive = true;
+        this.primaryContainer.interactive = true;
 
         // Apply an update on mouse move.
-        this.pixi.stage.on('mousemove', e => {
+        this.primaryContainer.on('mousemove', e => {
             // Draw the constraint circle around the mouse.
             graphics.clear();
             graphics.lineStyle(1, 0x000000);
@@ -53,19 +45,23 @@ class Home extends React.Component {
             graphics.endFill();
         });
 
-        this.pixi.stage.addChild(graphics);
+        this.primaryContainer.addChild(graphics);
+        pixi.stage.addChild(this.primaryContainer);
+        pixi.resizeTo = this.$container;
+        this.$container.appendChild(pixi.view);
     }
 
     componentWillUnmount() {
-        this.stage = null;
-        delete this.pixi;
-        this.pixi = null;
+        const { pixi } = this.props;
+
+        this.primaryContainer.destroy();
+        pixi.stage.removeChildren();
+        pixi.destroy(false, true);
     }
 
     render() {
         return (
-            <section className="Home">
-                <canvas ref={ el => this.$canvas = el } />
+            <section className="Home" ref={ el => this.$container = el }>
             </section>
         );
     }
