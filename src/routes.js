@@ -1,6 +1,7 @@
 import Home from './sections/Home';
 import ConstraintChain from './sections/ConstraintChain';
 import FabrikChain from './sections/FabrikChain';
+import CollisionConstraint from './sections/CollisionConstraint';
 
 const routes = [
     {
@@ -21,7 +22,7 @@ const routes = [
     {
         name: "Constraint - Collission Constraint",
         path: '/constraint-collision',
-        component: null,
+        component: CollisionConstraint,
     },
     {
         name: "Constraint - Collission Constraint w/ Verlet",

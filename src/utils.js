@@ -50,6 +50,7 @@ Object.defineProperty(PIXI.AbstractRenderer.prototype, "scaledHeight", {
  * @returns {PIXI.Point}
  */
 export const constraintDistance = (point, anchor, distance) => {
+    if(point === anchor) return point;
     const normalized = (new PIXI.Point(
         point.x - anchor.x,
         point.y - anchor.y,
