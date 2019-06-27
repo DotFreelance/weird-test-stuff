@@ -9,7 +9,7 @@ import './ConstraintChain.scss';
 import { constraintDistance } from '../../utils';
 
 // Constants.
-const CONSTRAINT_DISTANCE = 100;
+const CONSTRAINT_DISTANCE = 50;
 
 class ConstraintChain extends React.Component {
 
@@ -17,7 +17,7 @@ class ConstraintChain extends React.Component {
         super(props);
 
         this.primaryContainer = new PIXI.Container();
-        this.circle = new PIXI.Point();
+        this.circles = new Array(5).fill(new PIXI.Point());
     }
 
     componentDidMount() {
@@ -29,19 +29,29 @@ class ConstraintChain extends React.Component {
 
         // Apply an update on mouse move.
         this.primaryContainer.on('mousemove', e => {
-            // Draw the constraint circle around the mouse.
             graphics.clear();
-            graphics.lineStyle(1, 0x000000);
-            graphics.drawCircle(e.data.global.x, e.data.global.y, CONSTRAINT_DISTANCE);
 
-            // If the ball is hitting the constraint edge, drag it along.
-            if(this.circle.magnitudeFrom(e.data.global) > CONSTRAINT_DISTANCE) {
-                this.circle = constraintDistance(this.circle, e.data.global, CONSTRAINT_DISTANCE);
-            }
-
-            // Draw the ball.
+            // Draw the balls.
             graphics.beginFill(0x000000, 1);
-            graphics.drawCircle(this.circle.x, this.circle.y, 10);
+
+            this.circles.forEach((circle, key) => {
+                let newPoint = new PIXI.Point();
+                if(key === 0) {
+                    newPoint = e.data.global;
+                } else {
+                    newPoint = constraintDistance(circle, this.circles[key-1], CONSTRAINT_DISTANCE);
+                    // Draw the line between the dots.
+                    graphics.lineStyle(5);
+                    graphics.moveTo(this.circles[key-1].x, this.circles[key-1].y);
+                    graphics.lineTo(newPoint.x, newPoint.y);
+                    graphics.lineStyle(0);
+                }
+                // Draw point.
+                graphics.drawCircle(newPoint.x, newPoint.y, 10);
+                // Update point in data structure.
+                this.circles[key] = newPoint;
+            });
+
             graphics.endFill();
         });
 

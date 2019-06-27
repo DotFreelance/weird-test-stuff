@@ -1,5 +1,6 @@
 import Home from './sections/Home';
 import ConstraintChain from './sections/ConstraintChain';
+import FabrikChain from './sections/FabrikChain';
 
 const routes = [
     {
@@ -15,7 +16,7 @@ const routes = [
     {
         name: "Constraint - FABRIK Chain",
         path: '/constraint-fabrik',
-        component: null,
+        component: FabrikChain,
     },
     {
         name: "Constraint - Collission Constraint",
